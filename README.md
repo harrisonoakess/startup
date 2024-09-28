@@ -35,3 +35,16 @@ Give a home screen to see new messages when you arrive to work, * *as well as ad
 Task manager to be shared and updated with a whole team. **A chat tab in the bottem right with notificaitons for new messages**
 
 ![image](https://github.com/user-attachments/assets/709543bd-560b-4e7c-b954-1af6aa500fbf)
+
+
+
+
+*9/28/24 Update*
+- Added a basic outline of html of the format of the website
+- Added a login area for users
+- Added a place to view messages
+- Added a place to see the other pages, as well as a github link
+- Added a placeholder for where the tasks will go, who wrote them, the time/date, and if they have been completed or not.
+- added another place to see messages, and a place to enter messages into the chat.
+- inlcuded the username at in the footer to indicate who is logged in
+- added a "logout" link that will take you to the homepage
