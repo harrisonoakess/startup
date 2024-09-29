@@ -40,7 +40,7 @@ Task manager to be shared and updated with a whole team. **A chat tab in the bot
 
 
 
-##HTML Updates##
+## HTML Updates
 *9/28/24 Update*
 - Added a basic outline of html of the format of the website
 - Added a login area for users
