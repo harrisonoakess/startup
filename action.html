@@ -32,47 +32,51 @@
               <a class="dropdown-item" href="#">Team 3</a>
             </div>
           </div>
-          <br></br>
-        <table value = "task list">
+    </section>
+    <section>
+        <table value="task list">
             <tr>
                 <th>Tasks</th>
-                <th>user added</th>
-                <th>time/date added</th>  
+                <th>User Added</th>
+                <th>Time/Date Added</th>
+                <th>Status</th>
             </tr>
-        
             <tr>
                 <td>Talk to HR</td>
                 <td>Bill Jones</td>
                 <td>9/24/24 12:57pm</td>
                 <td>
-                    <label>
-                        <input type= "radio" name="task1?" value = "task1">Completed
-                        </label>
-                        <label>
-                            <input type = "radio" name = "task1" value = "task1" checked>Not Completed
-                        </label>
+                    <label class="custom-radio">
+                        <input type="radio" name="task1" value="completed">
+                        <span class="checkmark"></span>
+                        Completed
+                    </label>
+                    <label class="custom-radio">
+                        <input type="radio" name="task1" value="not_completed" checked>
+                        <span class="checkmark"></span>
+                        Not Completed
+                    </label>
                 </td>
             </tr>
-        
             <tr>
                 <td>Team meeting</td>
                 <td>Jimmy Mgill</td>
                 <td>9/30/24 01:34pm</td>
                 <td>
-                    <label>
-                        <input type= "radio" name="task1?" value = "task2">Completed
-                        </label>
-                        <label>
-                            <input type = "radio" name = "task1" value = "task2" checked>Not Completed
-                        </label>
+                    <label class="custom-radio">
+                        <input type="radio" name="task2" value="completed">
+                        <span class="checkmark"></span>
+                        Completed
+                    </label>
+                    <label class="custom-radio">
+                        <input type="radio" name="task2" value="not_completed" checked>
+                        <span class="checkmark"></span>
+                        Not Completed
+                    </label>
                 </td>
             </tr>
-            <h5>Users included: Bill Jones, Jimmy Mgill</h5>
-            
-        
-            
         </table>
-        </section>
+    </section>
 
         <section id="employee-chat">
             <h2>Employee Chat</h2>
@@ -102,11 +106,11 @@
             </table>
         </section>
         <section id="message-input">
-            <form id="enter-text">
-                <textarea name="message" id="input" placeholder="Type here" rows="2" cols="50"></textarea>
-                <input type="submit" value="Send">
-            </form>
-        </section>
+    <form id="enter-text">
+        <textarea name="message" id="input" placeholder="Type here" rows="2" cols="50"></textarea>
+        <input type="submit" value="Send">
+    </form>
+</section>
     
 </body>
 
