@@ -13,3 +13,33 @@ body {
     flex-direction: column;
     height: 100%;
   }
+
+header {
+    flex: 0 55px;
+    font-size: 25px;
+    font-weight: 400;
+    background: rgb(38, 128, 98);
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left_group {
+    display: flex;
+    align-items: center;
+}
+
+.right_group {
+    display: flex;
+    align-items: center;
+}
+
+.right_group div {
+    margin-left: 1em;
+}
+
+div {
+    padding: 0 .5em;
+} 
