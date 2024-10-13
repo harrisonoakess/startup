@@ -19,50 +19,52 @@
     </header>
 
     <main>
-        <section id="login info">
-            <br/>
-            <br/>
-            <h2>What is your name?</h2>
-            <form action="/login"
-            <label for="username">Username:</label>
-                 <input type="text" id="username" name="username" required>
-                 <button type="submit">Log In</button>
-             </form>
+        <section id="login-info">
+            <div class="login-box">
+                <h2>What is your name?</h2>
+                <form action="/login">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <button type="submit">Log In</button>
+                </form>
+            </div>
         </section>
 
-        <section id="employee chat">
-            <h2>Employee Chat</h2>
-            <table id="messages">
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>User</th>   
-                    <th>Message</th>  
-                </tr>
-                <tr>
-                    <td>9/25/2024</td>
+        <section id="employee_chat"></section>
+            <div>Employee Chat</div>
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Message</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">9/25/2024</th>
                     <td>09:53 am</td>
                     <td>Bill Jones</td>
                     <td>Good morning!</td>
-                </tr>
-                <tr></tr>
-                    <td>9/24/2024</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">9/24/2024</th>
                     <td>10:53 pm</td>
                     <td>Mike Johnson</td>
                     <td>Good night!</td>
-                </tr>
-            </table>
-        </section>
-
-        <section>
-            <h3>Pages</h3>
-            <div><a href="https://startup.hrtogether.click/action.html">Tasks</a></div>
+                  </tr>
+                  
+                </tbody>
+              </table>
         </section>
     </main>
 
-    <footer>
-        <h4>For more info, click below</h4>
-        <div><a href="https://github.com/harrisonoakess/startup.git">GitHub Repository</a></div> 
+    <footer class="navbar navbar-expand-lg navbar-light bg-light">
+        
+        <div><a href="https://github.com/harrisonoakess/startup.git" class="btn btn-outline">GitHub Repository</a></div> 
 
     </footer>
 </body>
