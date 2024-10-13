@@ -40,7 +40,7 @@ Task manager to be shared and updated with a whole team. **A chat tab in the bot
 
 
 
-## HTML Updates
+## Startup Updates
 *9/28/24 Update*
 - Added a basic outline of html of the format of the website
 - Added a login area for users
@@ -50,3 +50,9 @@ Task manager to be shared and updated with a whole team. **A chat tab in the bot
 - added another place to see messages, and a place to enter messages into the chat.
 - inlcuded the username at in the footer to indicate who is logged in
 - added a "logout" link that will take you to the homepage
+
+*10/12/24 Update*
+- Changed the layout of the headers and footers. They are now the same for each of the pages
+- Updated the login page to look cleaner
+- updated the employee chat on the login page and on the task page. The send message feature looks much better now in the task manager
+- Made sure everything can be flexed to fit different types of screens.
