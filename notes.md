@@ -97,9 +97,4 @@ I'm unable to directly modify or view your document, but I can help you format y
 
 - Lightweight data-interchange format easy for humans/machines to read/write. Used to transmit data between server/web application.
 
----
 
-This structure should be visually appealing when viewed on GitHub. Ensure that you preview your Markdown file on GitHub to confirm the formatting appears as expected.
-
-Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/32052386/d65753e4-54ca-4b96-ad93-a4d9aab73dc3/Untitled-document.docx
