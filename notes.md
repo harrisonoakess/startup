@@ -3,12 +3,9 @@ HTML: Structure and Semantics
 
 Overview
 
-
 HTML (HyperText Markup Language) is the foundational language for web development. It structures content on the web and is essential for both single-page applications (SPA) and multi-page applications (MPA).
 
-
 Basic Structure
-
 
 An HTML document starts with <!DOCTYPE html>, followed by the <html> element.
 
