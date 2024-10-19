@@ -98,57 +98,114 @@
 
 # pt 2 notes #
 
-<h1>HTML Basics</h1> HyperText Markup Language (HTML) provides the foundation of content for web applications. Web pages can be either Single Page Applications (SPA) or Multi-Page Applications (MPA). <h2>Common HTML Elements</h2>
-<html>: Top-level container
-<head>: Metadata about the page
-<title>: Title of the webpage
-<body>: Contains the content structure of the page
-<div>: Block-level element used to group content
-<span>: Inline-level element used for grouping
-<h2>HTML Elements and Tags</h2> Elements are represented by opening and closing tags. For example, <p> represents a paragraph. Attributes modify elements' behavior. Example: <p id="intro" class="text">Text</p>.
-<h1>CSS Basics</h1> The CSS Box Model defines elements as boxes with content, padding, borders, and margins. <h2>Box Model Layers</h2>
-Content Box: The actual content of the element
-Padding Box: Space around the content, inside the border
-Border: Separates the padding from the margin
-Margin: The space outside the border
-<h2>Flexbox</h2> Flexbox is used for responsive designs where elements adjust based on container size.
-display: flex: Enables flex layout
-justify-content: Aligns items horizontally
-align-items: Aligns items vertically
-<h1>JavaScript Basics</h1> <h2>Variables</h2> Variables are declared using let, const, or var (deprecated).
-javascript
+1. HTML Basics
+HyperText Markup Language (HTML):
+Provides the foundation of content for web applications.
+Web pages can be either Single Page Applications (SPA) or Multi-Page Applications (MPA).
+Common HTML Elements:
+<html>: Top-level container.
+<head>: Metadata about the page.
+<title>: Title of the webpage.
+<body>: Contains the content structure of the page.
+<div>: Block-level element used to group content.
+<span>: Inline-level element used for grouping.
+Example Question:
+In the following code, what does a <div> tag do?
+Answer: It creates a block-level container used to group content.
+2. HTML Elements and Tags
+Elements: Represented by opening and closing tags. For example, <p> represents a paragraph.
+Attributes: Elements can have attributes that modify their behavior. Example: <p id="intro" class="text">Text</p>
+Example Question:
+What is the difference between the #title and .grid selector in CSS?
+Answer: #title targets an element with the ID title, while .grid targets all elements with the class grid.
+3. CSS Basics
+CSS Box Model:
+CSS defines elements as boxes. These boxes have content, padding, borders, and margins. Understanding the box model is essential for layout management.
+Box Model Layers:
+Content Box: The actual content of the element.
+Padding Box: Space around the content, inside the border.
+Border: Separates the padding from the margin.
+Margin: The space outside the border.
+Example Question:
+What is the difference between padding and margin in CSS?
+Answer: Padding is the space inside the border but outside the content, while the margin is the space outside the border.
+4. CSS Flexbox and Grid
+Flexbox:
+Used for responsive designs where elements should adjust based on container size.
+Properties:
+display: flex: Enables flex layout.
+justify-content: Aligns items horizontally.
+align-items: Aligns items vertically.
+Example Question:
+Given this HTML and CSS, how will the images be displayed using flex?
+Answer: The images will be aligned based on the flex properties like flex-direction, justify-content, etc.
+5. JavaScript Basics
+Variables:
+Declared using let, const, or var (deprecated).
+Example:
+js
 let x = 10;
 const y = 20;
 
-<h2>Functions</h2> Functions can be declared using regular syntax or arrow functions.
-javascript
+Functions:
+Functions can be declared using regular syntax or arrow functions.
+js
 function greet() { return 'Hello'; }
 const greet = () => 'Hello';
 
-<h1>Document Object Model (DOM)</h1>
-getElementById(): Selects an element by its ID
-addEventListener(): Adds an event listener to an element
-<h2>CSS and JavaScript Integration</h2> CSS can be applied to JavaScript-selected elements:
-javascript
+Example Question:
+What does the following code using arrow syntax function declaration do?
+Answer: It defines a function that returns the string 'Hello'.
+6. Document Object Model (DOM)
+getElementById(): Selects an element by its ID.
+addEventListener(): Adds an event listener to an element.
+Example Question:
+What does the following code output using getElementByID and addEventListener?
+Answer: It selects the element by its ID and attaches an event listener that triggers when the event occurs.
+7. CSS and JavaScript Integration
+CSS can be applied to JavaScript-selected elements:
+js
 document.querySelector('#byu').style.color = 'green';
 
-<h2>HTML and JavaScript Form Integration</h2> HTML forms can be submitted with or without JavaScript.
+Example Question:
+How would you use JavaScript to select an element with the id of "byu" and change the text color of that element to green?
+Answer: Use document.getElementById("byu").style.color = 'green';.
+8. HTML and JavaScript Form Integration
+HTML forms can be submitted with or without JavaScript. Forms send data using input elements like textarea, input, etc.
+Example:
 xml
 <form action="submit.html" method="POST">
   <textarea name="comments"></textarea>
   <button type="submit">Submit</button>
 </form>
 
-<h1>Command Line Basics</h1>
-chmod: Changes permissions of files
-pwd: Prints the working directory
-cd: Change directory
-ls: List directory contents
-mv: Move files
-rm: Remove files
-<h1>Network and Web Concepts</h1>
-Port 80: HTTP
-Port 443: HTTPS
-Web Certificates: Required for secure HTTPS connections
-DNS A Record: Points to an IP address
-A web certificate is necessary to use HTTPS, as it ensures encrypted communication between a web server and a browser.
+9. Command Line Basics
+chmod: Changes permissions of files.
+pwd: Prints the working directory.
+cd: Change directory.
+ls: List directory contents.
+mv: Move files.
+rm: Remove files.
+Example Question:
+What does the console command chmod, pwd, cd, ls, mv, rm do?
+Answer: Each command manages file and directory manipulation in the terminal.
+10. Network and Web Concepts
+Port 80: HTTP.
+Port 443: HTTPS.
+Web Certificates: Required for secure HTTPS connections.
+DNS A Record: Points to an IP address.
+Example Question:
+Is a web certificate necessary to use HTTPS?
+Answer: Yes, it ensures encrypted communication between a web server and a browser.
+11. Promises in JavaScript
+Promises:
+Used for asynchronous operations.
+Example:
+js
+let promise = new Promise((resolve, reject) => {
+  // Async code
+});
+
+Example Question:
+What will the following code using Promises output when executed?
+Answer: Depending on the state of the promise, it will output either a resolved value or a rejection.
