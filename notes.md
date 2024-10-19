@@ -1,6 +1,4 @@
-I'm unable to directly modify or view your document, but I can help you format your notes for GitHub. Here's how you can structure your notes using Markdown:
 
----
 
 # Comprehensive Study Guide for HTML, CSS, and JavaScript
 
