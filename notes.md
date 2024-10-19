@@ -1,13 +1,27 @@
 HTML: Structure and Semantics
+
+
 Overview
+
+
 HTML (HyperText Markup Language) is the foundational language for web development. It structures content on the web and is essential for both single-page applications (SPA) and multi-page applications (MPA).
+
+
 Basic Structure
+
+
 An HTML document starts with <!DOCTYPE html>, followed by the <html> element.
+
 The <head> element contains metadata, such as the <title> and links to stylesheets.
+
 The <body> element includes the content users interact with.
+
 Elements and Tags
+
 Tags define HTML elements, enclosed in angle brackets (< >), typically with an opening (<p>) and closing tag (</p>).
+
 Block-level elements (e.g., <div>, <p>) start on a new line, while inline elements (e.g., <span>, <a>) do not disrupt text flow.
+
 Attributes
 Attributes provide additional information about elements. Common attributes include id, class, src, and href.
 Example: <p id="hello" class="greeting">Hello world</p>
