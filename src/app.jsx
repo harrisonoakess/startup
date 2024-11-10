@@ -1,7 +1,25 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './app.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./login/Header";
+import LoginForm from "./login/LoginForm";
+import EmployeeChat from "./login/EmployeeChat";
+import Footer from "./login/Footer";
+import "./index.css";
 
-export default function App() {
-  return <div className='body bg-dark text-light'>App will display here</div>;
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/tasks" element={<TaskPage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
+  );
 }
+
+export default App;
