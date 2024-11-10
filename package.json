@@ -1,0 +1,24 @@
+{
+  "name": "startup",
+  "version": "1.0.0",
+  "description": "Does your company stuggle with a easy efficant way for employee's to communicate with each other in an easy and efficiante way? Does reception lack communication with what is happening in the back? Do teams struggle to know the task as hand, or what other team members are working on? With this application, you can give employees and supervisors an easy way to communicate effectivly, send data and documents, and even send quick messages to each other to keep everyone in the loop.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.4.10"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.5",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0"
+  }
+}
