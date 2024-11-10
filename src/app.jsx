@@ -4,6 +4,7 @@ import Header from "./Login/Header";
 import Footer from "./Login/Footer";
 import LoginForm from "./Login/LoginForm";
 import EmployeeChat from "./Login/EmployeeChat";
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 export default function App() {
@@ -12,7 +13,7 @@ export default function App() {
       <Header />
       <Routes>
         <Route path="/" element={<LoginForm />} />
-        <Route path="/chat" element={<EmployeeChat />} />
+        <Route path="/tasks" element={<EmployeeChat />} />
       </Routes>
       <Footer />
     </Router>
