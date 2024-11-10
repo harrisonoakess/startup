@@ -26,6 +26,7 @@ export default function App() {
           <div>
           <ChooseBar />
           <TaskTable />
+          <EmployeeChat />
           <MessageInput />
           </div>} />
       </Routes>
