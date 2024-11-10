@@ -1,19 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <header className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <div className="left_group">
-          <a href="https://startup.hrtogether.click/action.html" className="btn btn-primary">
+          <Link to="/chat" className="btn btn-primary">
             My Tasks
-          </a>
+          </Link>
         </div>
         <div className="right_group">
-          <a href="" className="btn btn-secondary me-2">Account</a>
-          <a href="https://startup.hrtogether.click/index.html" className="btn btn-outline-danger">
-            Logout
-          </a>
+          <button className="btn btn-secondary me-2">Account</button>
+          <button className="btn btn-outline-danger">Logout</button>
         </div>
       </div>
     </header>
