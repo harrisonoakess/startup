@@ -8,9 +8,9 @@ export default function ChooseBar() {
           Select Task Team
         </button>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a className="dropdown-item" href="#">Team 1</a>
-          <a className="dropdown-item" href="#">Team 2</a>
-          <a className="dropdown-item" href="#">Team 3</a>
+          <a className="dropdown-item" href="#">Team 11</a>
+          <a className="dropdown-item" href="#">Team 22</a>
+          <a className="dropdown-item" href="#">Team 33</a>
         </div>
       </div>
     </section>
