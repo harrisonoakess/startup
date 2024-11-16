@@ -62,3 +62,7 @@ Task manager to be shared and updated with a whole team. **A chat tab in the bot
 - Not a lot of changes to the site itself, but the site is now integreated with react
 - a few changes to links and where the buttons take you
 - Added Javascript to prepare for full app functionality
+
+- *11/16/24 Update*
+- added an API to load a quote from breaking bad into the footer
+- The API loads the information into the bottom of both pages
