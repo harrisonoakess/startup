@@ -28,8 +28,8 @@ fetchQuote();
         </a>
       </div>
       <div className = "mt-2">
-        <p className = "text-muted">{quoteData.quote}</p>
-        <p className = "text-muted">- {quoteData.author}</p>
+        <p className = "quote-text">{quoteData.quote}</p>
+        <p className = "quote-text">- {quoteData.author}</p>
       </div>
     </footer>
   );
