@@ -65,4 +65,4 @@ Task manager to be shared and updated with a whole team. **A chat tab in the bot
 
 - *11/16/24 Update*
 - added an API to load a quote from breaking bad into the footer
-- The API loads the information into the bottom of both pages
+- The API loads the information into the bottom of both pages 
