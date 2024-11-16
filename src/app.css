@@ -64,6 +64,7 @@ footer .quote-text {
     text-align: center;
     margin: 5px;
     color: #333;
+    font-style: italic;
 }
 
 /* Everything here is for the login box */
