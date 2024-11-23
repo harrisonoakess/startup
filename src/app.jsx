@@ -20,7 +20,6 @@ export default function App() {
         <Route path="/" element={
           <div>
           <LoginForm />
-          <EmployeeChat />
           </div>} />
         <Route path="/tasks" element={
           <div>

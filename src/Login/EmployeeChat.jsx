@@ -16,13 +16,13 @@ export default function EmployeeChat() {
         <tbody>
           <tr>
             <td>9/25/2024</td>
-            <td>09:53 am</td>
+            <td>09:53 AM</td>
             <td>Bill Jones</td>
             <td>Good morning!</td>
           </tr>
           <tr>
             <td>9/24/2024</td>
-            <td>10:53 pm</td>
+            <td>10:53 PM</td>
             <td>Mike Johnson</td>
             <td>Good night!</td>
           </tr>
