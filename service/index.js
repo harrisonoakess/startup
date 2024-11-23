@@ -1,73 +1,88 @@
+const express = require('express');
 const { MongoClient } = require('mongodb');
+const uuid = require('uuid');
 const config = require('./dbConfig.json');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-async function main() {
-  // Connect to the database cluster
+const app = express();
+const port = 3000; // Default port for development
+
+app.use(express.json());
+
+let db;
+let usersCollection;
+
+// Database connection setup
+async function connectToDB() {
   const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
   const client = new MongoClient(url);
-  const db = client.db('rental');
-  const collection = db.collection('house');
-
-  // Test that you can connect to the database
   try {
     await client.connect();
-    await db.command({ ping: 1 });
-    console.log("Connected successfully to the database!");
-  } catch (ex) {
-    console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+    console.log('Connected successfully to the database!');
+    db = client.db('yourDatabaseName');
+    usersCollection = db.collection('users');
+  } catch (error) {
+    console.error('Database connection error:', error);
     process.exit(1);
   }
-
-  // Insert a document
-  const house = {
-    name: 'Beachfront views',
-    summary: 'From your bedroom to the beach, no shoes required',
-    property_type: 'Condo',
-    beds: 1,
-  };
-  await collection.insertOne(house);
-
-  // Query the documents
-  const query = { property_type: 'Condo', beds: { $lt: 2 } };
-  const options = {
-    sort: { score: -1 },
-    limit: 10,
-  };
-
-  const cursor = collection.find(query, options);
-  const rentals = await cursor.toArray();
-  rentals.forEach((i) => console.log(i));
 }
 
-main().catch(console.error);
+// Call the database connection function
+connectToDB().catch(console.error);
 
+// API routes
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
 
 // Create new user
-// curl -X POST http://localhost:3000/api/users/create -H 'Content-Type: application/json' -d '{"username":"exampleUser"}'
+// curl -X POST http://localhost:3000/api/users/create -H 'Content-Type: application/json' -d '{"username":"exampleUser", "password":"yourPassword"}'
 apiRouter.post('/users/create', async (req, res) => {
-  const username = req.body.username;
+  const { username, password } = req.body;
 
-  if (!username) {
-    res.status(400).send({ msg: 'Username is required' });
-    return;
+  if (!username || !password) {
+    return res.status(400).send({ msg: 'Username and password are required' });
   }
 
   try {
     const existingUser = await usersCollection.findOne({ username });
     if (existingUser) {
-      res.status(409).send({ msg: 'User already exists' });
-      return;
+      return res.status(409).send({ msg: 'User already exists' });
     }
 
-    const newUser = { id: uuid.v4(), username };
+    // Encrypt the password
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    
+    const newUser = { id: uuid.v4(), username, password: hashedPassword };
     await usersCollection.insertOne(newUser);
     console.log('User created:', newUser);
     res.status(201).send({ msg: 'User created successfully', username });
   } catch (error) {
     console.error('Error creating user:', error);
     res.status(500).send({ msg: 'Error creating user' });
+  }
+});
+
+// Delete a user by username
+// curl -X DELETE http://localhost:3000/api/users/delete -H 'Content-Type: application/json' -d '{"username":"exampleUser"}'
+apiRouter.delete('/users/delete', async (req, res) => {
+  const username = req.body.username;
+
+  if (!username) {
+    return res.status(400).send({ msg: 'Username is required' });
+  }
+
+  try {
+    const result = await usersCollection.deleteOne({ username });
+    if (result.deletedCount === 0) {
+      return res.status(404).send({ msg: 'User not found' });
+    }
+
+    console.log('User deleted:', username);
+    res.status(200).send({ msg: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).send({ msg: 'Error deleting user' });
   }
 });
 
@@ -85,32 +100,10 @@ apiRouter.get('/users', async (_req, res) => {
   }
 });
 
-// Delete a user by username
-// curl -X DELETE http://localhost:3000/api/users/delete -H 'Content-Type: application/json' -d '{"username":"exampleUser"}'
-apiRouter.delete('/users/delete', async (req, res) => {
-  const username = req.body.username;
 
-  if (!username) {
-    res.status(400).send({ msg: 'Username is required' });
-    return;
-  }
-
-  try {
-    const result = await usersCollection.deleteOne({ username });
-    if (result.deletedCount === 0) {
-      res.status(404).send({ msg: 'User not found' });
-      return;
-    }
-
-    console.log('User deleted:', username);
-    res.status(200).send({ msg: 'User deleted successfully' });
-  } catch (error) {
-    console.error('Error deleting user:', error);
-    res.status(500).send({ msg: 'Error deleting user' });
-  }
-});
-
-// Start the server
 app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+  console.log(`Server is listening on port ${port}`);
 });
+
+
+

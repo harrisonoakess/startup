@@ -40,3 +40,77 @@ async function main() {
 }
 
 main().catch(console.error);
+
+const apiRouter = express.Router();
+app.use('/api', apiRouter);
+
+// Create new user
+// curl -X POST http://localhost:3000/api/users/create -H 'Content-Type: application/json' -d '{"username":"exampleUser"}'
+apiRouter.post('/users/create', async (req, res) => {
+  const username = req.body.username;
+
+  if (!username) {
+    res.status(400).send({ msg: 'Username is required' });
+    return;
+  }
+
+  try {
+    const existingUser = await usersCollection.findOne({ username });
+    if (existingUser) {
+      res.status(409).send({ msg: 'User already exists' });
+      return;
+    }
+
+    const newUser = { id: uuid.v4(), username };
+    await usersCollection.insertOne(newUser);
+    console.log('User created:', newUser);
+    res.status(201).send({ msg: 'User created successfully', username });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).send({ msg: 'Error creating user' });
+  }
+});
+
+// List all users
+// curl http://localhost:3000/api/users
+apiRouter.get('/users', async (_req, res) => {
+  try {
+    const allUsers = await usersCollection.find({}).toArray();
+    const usernames = allUsers.map(user => user.username);
+    console.log('Users in database:', usernames);
+    res.send({ users: usernames });
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).send({ msg: 'Error fetching users' });
+  }
+});
+
+// Delete a user by username
+// curl -X DELETE http://localhost:3000/api/users/delete -H 'Content-Type: application/json' -d '{"username":"exampleUser"}'
+apiRouter.delete('/users/delete', async (req, res) => {
+  const username = req.body.username;
+
+  if (!username) {
+    res.status(400).send({ msg: 'Username is required' });
+    return;
+  }
+
+  try {
+    const result = await usersCollection.deleteOne({ username });
+    if (result.deletedCount === 0) {
+      res.status(404).send({ msg: 'User not found' });
+      return;
+    }
+
+    console.log('User deleted:', username);
+    res.status(200).send({ msg: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).send({ msg: 'Error deleting user' });
+  }
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
