@@ -15,7 +15,6 @@ import './app.css';
 export default function App() {
   return (
     <Router>
-      <Header />
       <Routes>
         <Route path="/" element={
           <div>
@@ -23,10 +22,11 @@ export default function App() {
           </div>} />
         <Route path="/tasks" element={
           <div>
-          <ChooseBar />
-          <TaskTable />
-          <EmployeeChat />
-          <MessageInput />
+            <Header/>
+            <ChooseBar />
+            <TaskTable />
+            <EmployeeChat />
+            <MessageInput />
           </div>} />
       </Routes>
       <Footer />
