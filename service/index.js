@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const config = require('./dbConfig.json');
 
 const app = express();
-const port = 3000; // Default port for development
+const port = 4000; // Default port for development
 
 app.use(express.json());
 
@@ -15,7 +15,7 @@ let usersCollection;
 // Database connection setup
 async function connectToDB() {
   const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
-  const client = new MongoClient(url);
+  const client = new MongoClient(url, { tls: true, serverSelectionTimeoutMS: 3000, autoSelectFamily: false, });
   try {
     await client.connect();
     console.log('Connected successfully to the database!');
@@ -33,7 +33,7 @@ connectToDB().catch(console.error);
 // ------------------------------------------API routes---------------------------------
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
-
+app.use(express.static('public'));
 const saltRounds = 10;
 
 // Create new user (Signup)
