@@ -68,4 +68,9 @@ Task manager to be shared and updated with a whole team. **A chat tab in the bot
 - The API loads the information into the bottom of both pages
 - added a backend compnent with commands to test "add username" "view userlist" and "delete user".
 - combined the login aspect with the backend info to prep for next week.
-- 
+
+*11/23/24 Update*
+- Updated the sign in so it supports creating an account and logging in
+- connected the website to the backend database
+- removed the header from the login screen to require logging in
+- fixed the login so it looks cleaner
