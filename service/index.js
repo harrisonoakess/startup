@@ -1,11 +1,15 @@
 const express = require('express');
+const http = require('http'); // Needed for WebSocket integration
+const WebSocket = require('ws'); // WebSocket library
 const { MongoClient } = require('mongodb');
 const uuid = require('uuid');
 const bcrypt = require('bcrypt');
 const config = require('./dbConfig.json');
 
 const app = express();
-const port = 4000; // Default port for development
+const server = http.createServer(app); // Create HTTP server
+const wss = new WebSocket.Server({ server }); // WebSocket server
+const port = 4000;
 
 app.use(express.json());
 
@@ -130,6 +134,26 @@ apiRouter.get('/users', async (_req, res) => {
     console.error('Error fetching users:', error);
     res.status(500).send({ msg: 'Error fetching users' });
   }
+});
+
+// ------------------------------------------WebSocket Stuff---------------------------------
+wss.on('connection', (ws) => {
+  console.log('New WebSocket client connected');
+
+  ws.on('message', (message) => {
+    console.log('Received:', message);
+
+    // Broadcast the message to all connected clients
+    wss.clients.forEach((client) => {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(message);
+      }
+    });
+  });
+
+  ws.on('close', () => {
+    console.log('WebSocket client disconnected');
+  });
 });
 
 // Start the server
