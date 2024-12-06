@@ -27,11 +27,6 @@ export default function App() {
     return () => socketRef.current.close();
   }, []); // Empty dependency array ensures WebSocket only connects once
 
-  // Log all messages in the console
-  const logMessages = () => {
-    console.log('Messages:', messages);
-  };
-
   // Function to add message to state
   const addMessageToState = (message) => {
     setMessages((prevMessages) => [message, ...prevMessages]);
@@ -41,7 +36,6 @@ export default function App() {
     <div>
       <EmployeeChat messages={messages} /> {/* Pass messages to EmployeeChat */}
       <MessageInput socketRef={socketRef} addMessageToState={addMessageToState} /> {/* Pass addMessageToState to MessageInput */}
-      <button onClick={logMessages}>Log All Messages</button> {/* Button to log all messages */}
     </div>
   );
 }
