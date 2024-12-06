@@ -26,12 +26,12 @@ function MessageInput() {
     e.preventDefault();
     if (message.trim() && socketRef.current.readyState === WebSocket.OPEN) {
       const outgoingMessage = {
-        user: 'Current User',
+        user: 'Current User', // Adjust to use actual user info if needed
         timestamp: new Date().toISOString(),
         message,
       };
-      socketRef.current.send(JSON.stringify(outgoingMessage));
-      setMessage('');
+      socketRef.current.send(JSON.stringify(outgoingMessage)); // Send the message to WebSocket server
+      setMessage(''); // Clear the input after sending
     }
   };
 
@@ -58,9 +58,10 @@ function EmployeeChat() {
   useEffect(() => {
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
     socketRef.current = new WebSocket(`${protocol}://${window.location.host}/ws`); // Connecting to /ws endpoint
+    socketRef.current.binaryType = 'text'; // Enforce text-based messages (not binary)
     socketRef.current.onmessage = (event) => {
-      const incomingMessage = JSON.parse(event.data);
-      setMessages((prevMessages) => [incomingMessage, ...prevMessages]);
+      const incomingMessage = JSON.parse(event.data); // Parse the incoming WebSocket message
+      setMessages((prevMessages) => [incomingMessage, ...prevMessages]); // Add new message to the beginning of the chat
     };
 
     socketRef.current.onclose = () => console.log('WebSocket connection closed');

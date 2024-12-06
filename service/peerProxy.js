@@ -14,14 +14,27 @@ class PeerProxy {
 
       // Handle incoming messages
       ws.on('message', (data) => {
-        console.log(`Received from ${connection.id}:`, data);
+        // Check if the message is binary data (Buffer) and convert it to a string
+        let messageData = data;
+        if (Buffer.isBuffer(data)) {
+          // Convert the Buffer to a string
+          messageData = data.toString();
+        }
 
-        // Forward message to all other clients
-        this.connections.forEach((c) => {
-          if (c.id !== connection.id && c.ws.readyState === WebSocketServer.OPEN) {
-            c.ws.send(data);
-          }
-        });
+        try {
+          // Parse the message as JSON
+          const parsedMessage = JSON.parse(messageData);
+          console.log(`Received from ${connection.id}:`, parsedMessage);
+
+          // Forward the message to all other clients
+          this.connections.forEach((c) => {
+            if (c.id !== connection.id && c.ws.readyState === WebSocketServer.OPEN) {
+              c.ws.send(JSON.stringify(parsedMessage)); // Send the message to other clients
+            }
+          });
+        } catch (error) {
+          console.error(`Error parsing message from ${connection.id}:`, error);
+        }
       });
 
       // Mark connection as alive on pong
