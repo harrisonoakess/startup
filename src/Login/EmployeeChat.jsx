@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 
-export default function Communication() {
+export default function App() {
   return (
     <div>
       <EmployeeChat />
@@ -10,27 +10,28 @@ export default function Communication() {
 }
 
 function MessageInput() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const socketRef = useRef();
 
-  // Initialize WebSocket connection when the component mounts
   useEffect(() => {
-    socketRef.current = new WebSocket("ws://localhost:4000");
-    socketRef.current.onopen = () => console.log("WebSocket connection established");
-    socketRef.current.onclose = () => console.log("WebSocket connection closed");
-    return () => socketRef.current.close(); // Cleanup on unmount
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    socketRef.current = new WebSocket(`${protocol}://${window.location.host}/ws`); // Connecting to /ws endpoint
+    socketRef.current.onopen = () => console.log('WebSocket connection established');
+    socketRef.current.onclose = () => console.log('WebSocket connection closed');
+
+    return () => socketRef.current.close();
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (message.trim() && socketRef.current.readyState === WebSocket.OPEN) {
       const outgoingMessage = {
-        user: "Current User", // Replace with the actual user info
-        timestamp: new Date(),
+        user: 'Current User',
+        timestamp: new Date().toISOString(),
         message,
       };
-      socketRef.current.send(JSON.stringify(outgoingMessage)); // Send message to server
-      setMessage(""); // Clear input field
+      socketRef.current.send(JSON.stringify(outgoingMessage));
+      setMessage('');
     }
   };
 
@@ -39,10 +40,8 @@ function MessageInput() {
       <form id="enter-text" onSubmit={handleSubmit}>
         <textarea
           name="message"
-          id="input"
           placeholder="Type here"
           rows="2"
-          cols="50"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
@@ -56,17 +55,17 @@ function EmployeeChat() {
   const [messages, setMessages] = useState([]);
   const socketRef = useRef();
 
-  // Initialize WebSocket connection and listen for incoming messages
   useEffect(() => {
-    socketRef.current = new WebSocket("ws://localhost:4000");
-
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    socketRef.current = new WebSocket(`${protocol}://${window.location.host}/ws`); // Connecting to /ws endpoint
     socketRef.current.onmessage = (event) => {
       const incomingMessage = JSON.parse(event.data);
       setMessages((prevMessages) => [incomingMessage, ...prevMessages]);
     };
 
-    socketRef.current.onclose = () => console.log("WebSocket connection closed");
-    return () => socketRef.current.close(); // Cleanup on unmount
+    socketRef.current.onclose = () => console.log('WebSocket connection closed');
+
+    return () => socketRef.current.close();
   }, []);
 
   return (

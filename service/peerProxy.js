@@ -1,43 +1,57 @@
-const WebSocket = require('ws');
+const { WebSocketServer } = require('ws');
+const uuid = require('uuid');
 
 class PeerProxy {
   constructor(server) {
-    this.wss = new WebSocket.Server({ server });
+    this.wss = new WebSocketServer({ server });
+    this.connections = []; // Track connections
 
+    // Handle new connections
     this.wss.on('connection', (ws) => {
-      console.log('Client connected');
+      const connection = { id: uuid.v4(), alive: true, ws };
+      this.connections.push(connection);
+      console.log(`Client connected: ${connection.id}`);
 
       // Handle incoming messages
-      ws.on('message', (message) => {
-        console.log('Received:', message);
+      ws.on('message', (data) => {
+        console.log(`Received from ${connection.id}:`, data);
 
-        // Broadcast the message to all other clients
-        this.wss.clients.forEach((client) => {
-          if (client !== ws && client.readyState === WebSocket.OPEN) {
-            client.send(message);
+        // Forward message to all other clients
+        this.connections.forEach((c) => {
+          if (c.id !== connection.id && c.ws.readyState === WebSocketServer.OPEN) {
+            c.ws.send(data);
           }
         });
       });
 
-      // Handle connection close
-      ws.on('close', () => {
-        console.log('Client disconnected');
+      // Mark connection as alive on pong
+      ws.on('pong', () => {
+        connection.alive = true;
       });
 
-      // Handle errors
+      // Remove closed connections
+      ws.on('close', () => {
+        console.log(`Client disconnected: ${connection.id}`);
+        this.connections = this.connections.filter((c) => c.id !== connection.id);
+      });
+
       ws.on('error', (error) => {
-        console.error('WebSocket error:', error);
+        console.error(`Error from ${connection.id}:`, error);
       });
     });
 
-    // Ping all clients every 30 seconds to keep connections alive
+    // Periodically check connection health
     setInterval(() => {
-      this.wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-          client.ping();
+      this.connections.forEach((c) => {
+        if (!c.alive) {
+          console.log(`Terminating inactive client: ${c.id}`);
+          c.ws.terminate();
+        } else {
+          c.alive = false;
+          c.ws.ping();
         }
       });
-    }, 30000);
+    }, 10000); // Ping every 10 seconds
   }
 }
 
