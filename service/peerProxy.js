@@ -1,36 +1,44 @@
 const WebSocket = require('ws');
 
-class peerProxy {
-    constructor(server) {
-        this.wss = new WebSocket.Server({server});
-        this.wss.on('connection', (ws) => {
-            console.log('Client Connected');
-            ws.on('message', (message) => {
-                console.log('Recieved: ', message);
+class PeerProxy {
+  constructor(server) {
+    this.wss = new WebSocket.Server({ server });
 
-                // sends message to everyone
-                this.wss.clients.forEach(client => {
-                    if (client !== ws && client.readyState === WebSocket.OPEN) {
-                        client.send(message);
-                    }
-                });
-            });
+    this.wss.on('connection', (ws) => {
+      console.log('Client connected');
 
-            ws.on('close', () => {
-                console.log('Client Disconnected');
-            });
-            ws.on('error', (error) => {
-                console.error('WebSocket error:', error);
-            });
+      // Handle incoming messages
+      ws.on('message', (message) => {
+        console.log('Received:', message);
+
+        // Broadcast the message to all other clients
+        this.wss.clients.forEach((client) => {
+          if (client !== ws && client.readyState === WebSocket.OPEN) {
+            client.send(message);
+          }
         });
-        //ping for connection
-        setInterval(() => {
-            this.wss.clients.forEach(client => {
-                if (client.readyState === WebSocket.OPEN) {
-                    client.ping();
-                }
-            });
-        }, 30000); // 30 seconds
-    }
+      });
+
+      // Handle connection close
+      ws.on('close', () => {
+        console.log('Client disconnected');
+      });
+
+      // Handle errors
+      ws.on('error', (error) => {
+        console.error('WebSocket error:', error);
+      });
+    });
+
+    // Ping all clients every 30 seconds to keep connections alive
+    setInterval(() => {
+      this.wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.ping();
+        }
+      });
+    }, 30000);
+  }
 }
+
 module.exports = PeerProxy;
