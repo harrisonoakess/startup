@@ -74,3 +74,8 @@ Task manager to be shared and updated with a whole team. **A chat tab in the bot
 - connected the website to the backend database
 - removed the header from the login screen to require logging in
 - fixed the login so it looks cleaner
+
+*12/9/24 Update*
+- Implemented a chat feature so employees can communicate with each other
+- clenaed up the chat feature on the front end to make it work better with the display
+- required login to access the information
