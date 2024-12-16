@@ -255,3 +255,428 @@ let promise = new Promise((resolve, reject) => {
 Example Question:
 What will the following code using Promises output when executed?
 Answer: Depending on the state of the promise, it will output either a resolved value or a rejection.
+
+
+
+
+
+
+
+
+
+
+
+
+### CS 260 Final Exam Cheat Sheet
+
+---
+
+#### **HTTP Basics**
+
+**Default Ports**:
+- **HTTP**: `80` – Standard web requests.
+- **HTTPS**: `443` – Secure web requests.
+- **SSH**: `22` – Secure Shell for remote access.
+
+**HTTP Status Codes**:
+- **1xx – Informational**:
+  - `100 Continue`: The service is working on the request.
+- **2xx – Success**:
+  - `200 OK`: Resource successfully returned.
+  - `201 Created`: A resource has been created.
+  - `204 No Content`: Successful request, no resource returned.
+- **3xx – Redirection**:
+  - `304 Not Modified`: Cached resource is still valid.
+  - `307 Temporary Redirect`: Resource is temporarily at another location.
+- **4xx – Client Errors**:
+  - `400 Bad Request`: Malformed or invalid request.
+  - `401 Unauthorized`: Missing/invalid authentication.
+  - `403 Forbidden`: Unauthorized to access resource.
+  - `404 Not Found`: Resource not found.
+  - `429 Too Many Requests`: Client has sent too many requests.
+- **5xx – Server Errors**:
+  - `500 Internal Server Error`: An error occurred on the server.
+  - `503 Service Unavailable`: Temporary server overload or maintenance.
+
+**Common HTTP Methods**:
+- **GET**: Retrieve data from the server.
+- **POST**: Submit data to the server.
+- **PUT**: Update an existing resource.
+- **DELETE**: Remove a resource.
+- **OPTIONS**: Fetch supported request methods and metadata.
+
+---
+
+#### **HTTP Headers**
+
+**Request Headers**:
+- **Authorization**: Includes credentials (e.g., `Bearer <token>`).
+- **Accept**: Indicates acceptable response formats (e.g., `application/json`).
+- **Content-Type**: Specifies the request body format (e.g., `application/json`).
+
+**Response Headers**:
+- **Set-Cookie**: Server sets cookies for the client. Examples:
+  - `Secure`: Only sent over HTTPS.
+  - `HttpOnly`: JavaScript cannot access this cookie.
+  - `SameSite`: Restricts cross-site sharing (`Strict` or `Lax`).
+- **Access-Control-Allow-Origin**: Specifies allowed origins for CORS.
+- **Cache-Control**: Defines caching policies.
+
+**Cookies**:
+- HTTP is stateless, so cookies allow state tracking.
+- Secure cookies enhance protection by enforcing HTTPS.
+
+---
+
+#### **React Basics**
+
+**React Components**:
+- Functional components define UI logic and structure.
+  ```jsx
+  const Hello = () => {
+    const [count, setCount] = React.useState(0);
+    return <div onClick={() => setCount(count + 1)}>Clicked {count} times</div>;
+  };
+  ```
+
+**React Hooks**:
+- **`useState`**: Manages component state.
+  ```jsx
+  const [count, setCount] = React.useState(0);
+  ```
+- **`useEffect`**: Handles side effects (e.g., fetching data or cleaning up resources).
+  ```jsx
+  React.useEffect(() => {
+    console.log("Component mounted");
+    return () => console.log("Component unmounted");
+  }, []);
+  ```
+- **`useContext`**: Shares data globally across components.
+- **`useRef`**: Provides a persistent reference that doesn’t re-render components.
+
+**React Router**:
+- Enables navigation between pages in a Single Page Application (SPA).
+  ```jsx
+  import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
+  <Router>
+    <Link to="/home">Home</Link>
+    <Route path="/home" component={HomeComponent} />
+  </Router>
+  ```
+
+**JSX Syntax**:
+- Combines HTML and JavaScript into a single syntax.
+  ```jsx
+  const element = <h1>Hello, world!</h1>;
+  ```
+
+---
+
+#### **Node.js Basics**
+
+**What is Node.js?**
+- A runtime environment that allows running JavaScript server-side.
+
+**Creating a Basic HTTP Server**:
+```javascript
+const http = require('http');
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end('<h1>Hello World</h1>');
+});
+server.listen(8080);
+```
+
+**Express.js Middleware Example**:
+```javascript
+const express = require('express');
+const app = express();
+
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
+app.get('/api/data', (req, res) => res.send({ message: 'Hello, World!' }));
+```
+
+---
+
+#### **MongoDB Basics**
+
+**Querying MongoDB**:
+- Find documents matching specific criteria:
+  ```javascript
+  db.collection('users').find({ name: 'Mark' });
+  ```
+- **Insert a document**:
+  ```javascript
+  db.collection('users').insertOne({ name: 'John', age: 30 });
+  ```
+
+**Storing Passwords**:
+- Always hash passwords using algorithms like bcrypt.
+  ```javascript
+  const bcrypt = require('bcrypt');
+  const hashedPassword = await bcrypt.hash(password, 10);
+  ```
+
+---
+
+#### **WebSocket Basics**
+
+**Purpose**:
+- Maintains a persistent connection for real-time communication.
+
+**Example**:
+- **Backend (Node.js)**:
+  ```javascript
+  const WebSocket = require('ws');
+  const wss = new WebSocket.Server({ port: 8080 });
+
+  wss.on('connection', ws => {
+    ws.on('message', message => console.log(`Received: ${message}`));
+    ws.send('Hello, Client!');
+  });
+  ```
+- **Frontend**:
+  ```javascript
+  const ws = new WebSocket('ws://localhost:8080');
+  ws.onmessage = event => console.log(event.data);
+  ws.send('Hello, Server!');
+  ```
+
+---
+
+#### **Deployment Basics**
+
+**PM2**:
+- Process manager for Node.js applications.
+- Common Commands:
+  - `pm2 start index.js -n appName`: Start an application.
+  - `pm2 stop appName`: Stop an application.
+  - `pm2 restart appName`: Restart an application.
+  - `pm2 logs appName`: View logs.
+
+**Deployment Steps**:
+1. Prepare build files (`npm run build`).
+2. Transfer files to the production server using secure copy (SCP).
+3. Use PM2 to start and manage the application.
+
+---
+
+#### **Development Tools**
+
+**Vite**:
+- A fast build tool for frontend development.
+- Usage:
+  ```json
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  }
+  ```
+
+**Package.json**:
+- Manages project dependencies and scripts.
+- Key fields:
+  - `dependencies`: Libraries required for production.
+  - `devDependencies`: Libraries used only during development.
+  - `scripts`: Automate tasks like `start`, `build`, or `test`.
+
+---
+
+#### **CORS and SOP**
+
+**SOP (Same-Origin Policy)**:
+- Restricts JavaScript from making requests to different origins.
+
+**CORS (Cross-Origin Resource Sharing)**:
+- Allows controlled access to resources from other origins.
+- Example:
+  ```javascript
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  ```
+
+---
+
+#### **Additional Notes**
+
+**HTTP Versions**:
+- **HTTP/1.1**: Persistent connections, chunked transfers.
+- **HTTP/2**: Binary protocol, multiplexing.
+- **HTTP/3**: Built on QUIC, always encrypted.
+
+**URL Anatomy**:
+```
+<scheme>://<domain>:<port>/<path>?<parameters>#<anchor>
+```
+- Example: `https://example.com:443/path?name=value#section`
+
+**Common Acronyms**:
+- **JSX**: JavaScript XML.
+- **AWS**: Amazon Web Services.
+- **NPM**: Node Package Manager.
+- **NVM**: Node Version Manager.
+
+
+Here's the reformatted version with questions and answers side by side:
+
+# Web Development Notes
+
+## Networking and Protocols
+
+Q: What is the default port for HTTP/HTTPS/SSH?
+A: HTTP: 80, HTTPS: 443, SSH: 22
+
+Q: What does an HTTP status code in the range of 300/400/500 indicate?
+A: 300 range: Redirection, 400 range: Client-side errors, 500 range: Server-side errors
+
+Q: What does the HTTP header content-type allow you to do?
+A: Specifies the media type of the resource, helping the client interpret the content correctly
+
+Q: What does a "Secure cookie"/"Http-only cookie"/"Same-site cookie" do?
+A: Secure cookie: Only sent over HTTPS
+   Http-only cookie: Cannot be accessed by JavaScript
+   Same-site cookie: Controls when cookies are sent with cross-site requests
+
+## Express.js
+
+Q: Assuming the following Express middleware, what would be the console.log output for an HTTP GET request with a URL path of /api/document?
+A: The console would log: /api/document
+
+Q: Given the following Express service code: What does the following front end JavaScript that performs a fetch return?
+A: A fetch would return a Promise that resolves to the Response object from the server.
+
+## MongoDB
+
+Q: Given the following MongoDB query, select all of the matching documents {name:Mark}
+A: This query would return all documents where the name field exactly matches "Mark".
+
+## Security
+
+Q: How should user passwords be stored?
+A: Passwords should be stored using strong, slow hashing algorithms (e.g., bcrypt, Argon2) with unique salts for each password.
+
+## WebSockets
+
+Q: What is the websocket protocol intended to provide?
+A: Full-duplex, bidirectional communication between client and server over a single TCP connection.
+
+## Acronyms
+
+Q: What do the following acronyms stand for? JSX, JS, AWS, NPM, NVM
+A: JSX: JavaScript XML
+   JS: JavaScript
+   AWS: Amazon Web Services
+   NPM: Node Package Manager
+   NVM: Node Version Manager
+
+## React
+
+Q: Assuming an HTML document with a body element. What text content will the following React component generate?
+A: Assuming a component like:
+   ```jsx
+   function Welcome({name}) {
+     return <h1>Hello, {name}</h1>;
+   }
+   ```
+   It would generate: <h1>Hello, [name parameter value]</h1>
+
+Q: What does a React component with React.useState do?
+A: Allows functional components to have state variables.
+
+Q: What are React Hooks used for?
+A: Used to add state and other React features to functional components without writing a class.
+
+Q: What does the State Hook/Context Hook/Ref Hook/Effect Hook/Performance Hook do?
+A: State Hook: Adds state to functional components
+   Context Hook: Accesses context in functional components
+   Ref Hook: Creates a mutable reference
+   Effect Hook: Performs side effects in functional components
+   Performance Hook: Optimizes component rendering
+
+Q: Given React Router code, select statements that are true.
+A: React Router enables navigation among views in a React application, allowing for single-page application behavior.
+
+## Package Management
+
+Q: What does the package.json file do?
+A: Defines the project dependencies and contains various metadata about the project.
+
+## JavaScript
+
+Q: What does the fetch function do?
+A: Provides an interface for making network requests, returning a Promise that resolves to the Response object.
+
+## Node.js
+
+Q: What does node.js do?
+A: Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine, allowing execution of JavaScript on the server-side.
+
+Q: What does pm2 do?
+A: PM2 is a process manager for Node.js applications, handling deployment, monitoring, and clustering.
+
+Q: What does Vite do?
+A: Vite is a build tool that provides a faster and leaner development experience for modern web projects.
+
+
+# Web Development Quiz Answers
+
+1. Port 80 is reserved for:
+   - HTTP
+
+2. HTTP status codes in the 300 range are for:
+   - Content redirects or caching
+
+3. Which is NOT a standard HTTP header:
+   - Language
+
+4. Cookies allow:
+   - A server to store data on the client
+
+5. For the request [GET] /fav/george what is logged:
+   - paul george john
+
+6. Which Express middleware will match this fetch request:
+   - app.get('/fav/:id', () => {})
+
+7. What document matches this MongoDB query:
+   - { name: "harry", score: 5 }
+
+8. Why is hashing stored passwords important:
+   - It improves security by making the password unreadable
+
+9. Given the following code what will console.log print:
+   - Client:Server:Hello
+
+10. What value does WebSocket add to HTTP:
+    - It removes the need to keep a connection open
+
+11. What is NOT a purpose of JSX:
+    - To combine CSS, HTML, and JavaScript
+
+12. What will component A initially display:
+    - burgerfish
+
+13. What component will the URL `/burger` render:
+    - B
+
+14. What does the command "NPM install ws" NOT do:
+    - Adds template code for websockets to your JavaScript
+
+15. True or false: You can use fetch in front-end and back-end code.
+    - True
+
+16. Which of the following is NOT true about a Linux daemon:
+    - Cannot fork other processes
+
+
+
+
